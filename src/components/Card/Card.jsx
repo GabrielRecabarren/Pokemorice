@@ -22,7 +22,7 @@ const Card = ({ uri }) => {
               uri: uri,
             }}
             style={styles.cardImage}
-            resizeMode="contain" // Ajusta la imagen al contenedor
+             // Ajusta la imagen al contenedor
           />
         ) : (
           <View style={styles.cardContent}>
@@ -37,11 +37,12 @@ const Card = ({ uri }) => {
 const styles = StyleSheet.create({
   cardContainer: {
     backgroundColor: "rgba(74, 144, 226, 0.6)",
-    height: 140,
-    width: 80,
+    height: 120,
+    width: 90,
     shadowColor: "rgba(31, 38, 135, 0.37)",
     marginBottom:10,
     marginTop: 10,
+    
     shadowOffset: {
       width: 0,
       height: 8,
@@ -54,10 +55,16 @@ const styles = StyleSheet.create({
     borderColor: "rgba(255, 255, 255, 0.18)",
     alignItems: "center",
     justifyContent: "center",
+    overflow:"hidden",
+    
   },
   cardImage: {
     height: 200,
-    width: 90,
+    width: 120,
+    objectFit:"scale-down",
+
+    
+
   },
 });
 

@@ -4,7 +4,7 @@ import Card from '../Card/Card';
 import { PokemonContext } from '../../context/PokemonContext';
 
 export const CardList = () => {
-  const { pokemon16, loading, error } = useContext(PokemonContext);
+  const { pokemonList, loading, error } = useContext(PokemonContext);
 
   return (
     <View style={styles.container}>
@@ -14,7 +14,7 @@ export const CardList = () => {
         <Text>Error: {error.message}</Text>
       ) : (
         <View style={styles.cardsContainer}>
-          {pokemon16.map((pokemon) => (
+          {pokemonList.map((pokemon) => (
             <Card key={pokemon.id} uri={pokemon.sprites.front_default} />
           ))}
         </View>
@@ -26,10 +26,8 @@ export const CardList = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 15,
-    margin:10,
-
-    
+    padding: 5,
+    margin: 10,
     backgroundColor: 'rgba(255, 255, 255, 0.25)',
     shadowColor: 'rgba(31, 38, 135, 0.37)',
     shadowOffset: {

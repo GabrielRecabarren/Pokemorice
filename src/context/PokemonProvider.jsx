@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { PokemonContext } from "./PokemonContext";
 
 export const PokemonProvider = ({ children }) => {
-  const [pokemon16, setPokemon16] = useState([]);
+  const [pokemonList, setPokemonList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [numberOfPokemonToFetch, setNumberOfPokemonToFetch] = useState(8);
 
   useEffect(() => {
-    async function obtenerDatosDe16Pokemon() {
+    async function obtenerDatosDePokemon() {
       const baseUrl = "https://pokeapi.co/api/v2/pokemon/";
-      const numerosAleatorios = generarNumerosAleatorios(16);
+      const numerosAleatorios = generarNumerosAleatorios(numberOfPokemonToFetch);
 
       try {
         const datosPokemon = await Promise.all(
@@ -23,7 +24,7 @@ export const PokemonProvider = ({ children }) => {
           })
         );
 
-        setPokemon16(datosPokemon);
+        setPokemonList(datosPokemon);
         setLoading(false);
       } catch (err) {
         setError(err);
@@ -31,13 +32,8 @@ export const PokemonProvider = ({ children }) => {
       }
     }
 
-    obtenerDatosDe16Pokemon();
-  }, []);
-
-  const getRandomPokemon = () => {
-    const randomIndex = Math.floor(Math.random() * pokemon16.length);
-    return pokemon16[randomIndex];
-  };
+    obtenerDatosDePokemon();
+  }, [numberOfPokemonToFetch]); // Añade numberOfPokemonToFetch como dependencia
 
   // Función para generar números aleatorios únicos
   function generarNumerosAleatorios(cantidad) {
@@ -52,10 +48,10 @@ export const PokemonProvider = ({ children }) => {
   return (
     <PokemonContext.Provider
       value={{
-        pokemon16,
+        pokemonList,
         loading,
         error,
-        getRandomPokemon,
+        numberOfPokemonToFetch, // Puedes incluir este valor en el contexto si es necesario
       }}
     >
       {children}
